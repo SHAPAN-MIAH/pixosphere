@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 exports.connectDataBase = () => {
   mongoose
-    .connect("mongodb://localhost:27017/pixoSphere")
+    .connect(process.env.MONGO_URI)
     .then((con) => console.log(`Database Connected : ${con.connection.host}`))
     .catch((err) => console.log(err));
 };
