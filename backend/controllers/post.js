@@ -32,6 +32,8 @@ exports.createPost = async (req, res) => {
   }
 };
 
+
+
 // delete post controller
 exports.deletePost = async (req, res) => {
   try {
@@ -44,26 +46,28 @@ exports.deletePost = async (req, res) => {
       });
     }
 
-    if(post.owner.toString() !== req.user._id.toString()){
+    if (post.owner.toString() !== req.user._id.toString()) {
       return res.status(401).json({
         success: false,
         message: "Unauthorized",
-      })
-    }
+      });
+    };
 
-    await post.remove();
-
-    const user = await user.findById(req.user._id);
+    
+    await post.deleteOne();
+    
+    const user = await User.findById(req.user._id);
     const index = user.posts.indexOf(req.params.id);
     user.posts.splice(index, 1);
-    
-    await user.save();
 
+    await user.save();
 
     res.status(200).json({
       success: true,
-      message: "Post deleted"
-    })
+      message: "Post deleted",
+    });
+
+
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -71,6 +75,8 @@ exports.deletePost = async (req, res) => {
     });
   }
 };
+
+
 
 // controller for like and unlike
 exports.likeAndUnlike = async (req, res) => {
