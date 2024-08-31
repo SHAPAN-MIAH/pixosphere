@@ -1,5 +1,6 @@
 const User = require("../models/User");
 
+// register controller.
 exports.register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -17,8 +18,6 @@ exports.register = async (req, res) => {
       password,
       avatar: { public_id: "sample_public_id", url: "sample-url" },
     });
-
-    // res.status(201).json({ success: true, user });
 
     const token = await user.generateToken();
     const options = {
@@ -39,6 +38,7 @@ exports.register = async (req, res) => {
   }
 };
 
+// login controller
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -79,6 +79,7 @@ exports.login = async (req, res) => {
   }
 };
 
+// logout controller
 exports.logout = async (req, res) => {
   try {
     res
@@ -96,6 +97,7 @@ exports.logout = async (req, res) => {
   }
 };
 
+// follow user controller
 exports.followUser = async (req, res) => {
   try {
     const userToFollow = await User.findById(req.params.id);
@@ -142,10 +144,18 @@ exports.followUser = async (req, res) => {
   }
 };
 
+// Update password controller
 exports.updatePassword = async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
     const { oldPassword, newPassword } = req.body;
+
+    if (!oldPassword || newPassword) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide old and new password.",
+      });
+    }
 
     isMatch = await user.matchPassword(oldPassword);
     if (!isMatch) {
@@ -162,7 +172,35 @@ exports.updatePassword = async (req, res) => {
       success: true,
       message: "Password Updated",
     });
-    
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+// Update profile controller
+exports.updateProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    const { name, email } = req.body;
+
+    if (name) {
+      user.name = name;
+    }
+    if (email) {
+      user.email = email;
+    }
+
+    // user avatar todo
+
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Profile updated",
+    });
   } catch (error) {
     res.status(500).json({
       success: false,
