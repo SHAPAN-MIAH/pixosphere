@@ -1,6 +1,7 @@
 const Post = require("../models/Post");
 const User = require("../models/User");
 
+// Create post controller
 exports.createPost = async (req, res) => {
   try {
     const newPostData = {
@@ -31,6 +32,7 @@ exports.createPost = async (req, res) => {
     });
   }
 };
+
 
 // delete post controller
 exports.deletePost = async (req, res) => {
@@ -71,6 +73,7 @@ exports.deletePost = async (req, res) => {
   }
 };
 
+
 // controller for like and unlike
 exports.likeAndUnlike = async (req, res) => {
   try {
@@ -109,6 +112,7 @@ exports.likeAndUnlike = async (req, res) => {
   }
 };
 
+
 // Get post of following
 exports.getPostOfFollowing = async (req, res) => {
   try {
@@ -116,6 +120,7 @@ exports.getPostOfFollowing = async (req, res) => {
     //   "following",
     //   "posts"
     // );
+
     const user = await User.findById(req.user._id);
 
     const post = await Post.find({
@@ -127,6 +132,38 @@ exports.getPostOfFollowing = async (req, res) => {
       success: true,
       post,
       // following: user.following,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+
+// Update caption controller
+exports.updateCaption = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (!post) {
+      return res.status(404).json({
+        success: false,
+        message: "Post not found.",
+      });
+    }
+    if (post.owner.toString() !== req.user._id.toString()) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized",
+      });
+    }
+
+    post.caption = req.body.caption;
+    await post.save();
+    res.status(200).json({
+      success: true,
+      message: "Post Updated",
     });
     
   } catch (error) {
