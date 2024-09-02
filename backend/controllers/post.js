@@ -33,7 +33,6 @@ exports.createPost = async (req, res) => {
   }
 };
 
-
 // delete post controller
 exports.deletePost = async (req, res) => {
   try {
@@ -73,7 +72,6 @@ exports.deletePost = async (req, res) => {
   }
 };
 
-
 // controller for like and unlike
 exports.likeAndUnlike = async (req, res) => {
   try {
@@ -112,7 +110,6 @@ exports.likeAndUnlike = async (req, res) => {
   }
 };
 
-
 // Get post of following
 exports.getPostOfFollowing = async (req, res) => {
   try {
@@ -141,7 +138,6 @@ exports.getPostOfFollowing = async (req, res) => {
   }
 };
 
-
 // Update caption controller
 exports.updateCaption = async (req, res) => {
   try {
@@ -165,7 +161,55 @@ exports.updateCaption = async (req, res) => {
       success: true,
       message: "Post Updated",
     });
-    
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+// add comment on post controller.
+exports.commentOnPost = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+
+    if (!post) {
+      return res.status(404).json({
+        success: false,
+        message: "Post not found.",
+      });
+    }
+
+    let commentIndex = -1;
+
+    post.comments.forEach((item, index) => {
+      if (item.user.toString() === req.user._id.toString()) {
+        commentIndex = index;
+      }
+    });
+
+    if (commentIndex !== -1) {
+      post.comments[commentIndex].comment = req.body.comment;
+
+      await post.save();
+      
+      return res.status(200).json({
+        success: true,
+        message: "Comment updated",
+      });
+    } else {
+      post.comments.push({
+        user: req.user._id,
+        comment: req.body.comment,
+      });
+
+      await post.save();
+      return res.status(200).json({
+        success: true,
+        message: "Comment added",
+      });
+    }
   } catch (error) {
     res.status(500).json({
       success: false,
