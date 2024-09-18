@@ -1,0 +1,55 @@
+.news_feed_section {
+  margin-top: 30px;
+}
+.news_feed_content {
+  background-color: #f8f9fa;
+  padding: 30px 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+.news_feed_heading {
+  display: flex;
+}
+
+.news_feed_heading .user_img {
+  width: 50px;
+  height: 50px;
+  border: 2px solid var(--color_two);
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 10px;
+}
+.news_feed_heading .user_img img {
+  width: 100%;
+}
+
+.post_title_des {
+  margin-top: 20px;
+}
+
+.img_video {
+  margin-top: 20px;
+}
+.img_video img{
+  width: 100%;
+}
+
+.news_feed_heading button {
+  font-size: 10px;
+  border: 1px solid gainsboro;
+  background: var(--color_two);
+  color: #fff;
+  padding: 2px 10px;
+  border-radius: 30px;
+  margin-left: 10px;
+}
+
+.like,.comment,.share{
+  border: none;
+  border-radius: 4px;
+  background: none;
+  margin-right: 15px;
+  cursor: pointer;
+  padding: 5px 10px;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}

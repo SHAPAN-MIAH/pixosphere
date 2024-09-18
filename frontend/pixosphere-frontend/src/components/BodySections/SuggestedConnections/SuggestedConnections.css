@@ -1,0 +1,60 @@
+.suggested_connection_section {
+  margin-top: 30px;
+}
+.suggested_connection_container {
+  background-color: #f8f9fa;
+  padding: 30px 20px;
+  border-radius: 5px;
+}
+.suggested_connection_title{
+  display: flex;
+}
+.suggested_connection_title span{
+  width: 50px;
+  height: 50px;
+  font-size: 25px;
+  border: 1px solid var(--color_two);
+  color: var(--color_two);
+  border-radius: 50%;
+  text-align: center;
+  margin-right: 10px;
+}
+.suggested_connection_slider {
+  margin:25px 20px 0px 20px;
+}
+.slick-slide {
+  padding: 0px 5px !important;
+}
+.suggested_connection_card {
+  background-color: #fefefe;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+.suggested_connection_card span{
+  font-size: 14px;
+}
+.suggested_connection_card small{
+  font-size: 11px;
+}
+.suggested_connection_card .user_img {
+  width: 60px;
+  height: 60px;
+  margin: auto;
+  border: 1px solid gainsboro;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.suggested_connection_card .user_img img {
+  width: 100%;
+  margin: auto;
+}
+.suggested_connection_card button {
+  font-size: 14px;
+  border: 1px solid gainsboro;
+  background: var(--color_two);
+  color: #fff;
+  padding: 0px 10px;
+  border-radius: 30px;
+  margin-top: 12px;
+}

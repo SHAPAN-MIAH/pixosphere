@@ -1,0 +1,31 @@
+.profile_view_content {
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.cover_img img {
+  width: 100%;
+}
+
+.profile_img {
+  width: 70px;
+  height: 70px;
+  border: 2px solid var(--color_two);
+  border-radius: 50%;
+  overflow: hidden;
+  margin: -40px 0px 0px 20px;
+}
+.profile_img img {
+  width: 100%;
+}
+.profile_info{
+  margin: 20px;
+}
+.profile_info small{
+  font-size: 12px;
+}
+.following_follower{
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+}
